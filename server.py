@@ -81,4 +81,4 @@ def redirect():
 
 
 if __name__ == "__main__":
-    uvicorn.run("notify:APP", host="0.0.0.0", port=8081, reload=True)
+    uvicorn.run("server:APP", host="0.0.0.0", port=8081, reload=True)
