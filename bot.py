@@ -7,10 +7,12 @@ import time
 import redis
 import cfg
 
-
-REDIS_CLI = redis.Redis(
-    host=cfg.REDIS_HOST, port=cfg.REDIS_PORT, password=cfg.REDIS_PASSWORD
-)
+if cfg.REDIS_PASSWORD:
+    REDIS_CLI = redis.Redis(
+        host=cfg.REDIS_HOST, port=cfg.REDIS_PORT, password=cfg.REDIS_PASSWORD
+    )
+else:
+    REDIS_CLI = redis.Redis(host=cfg.REDIS_HOST, port=cfg.REDIS_PORT)
 BOT = telebot.TeleBot(cfg.TG_BOT_TOKEN, parse_mode="html")
 
 
@@ -21,7 +23,7 @@ def handle_message(message):
 
     print(f"收到消息: {cmd}")
 
-    if cmd == "/items" or cmd == "/start":
+    if cmd == "/items" or cmd == "/start" or cmd == "/start 1":
         mk = InlineKeyboardMarkup()
         for i, item in enumerate(cfg.ITEMS):
             mk.row(InlineKeyboardButton(item["name"], callback_data=f"item:{i}"))
