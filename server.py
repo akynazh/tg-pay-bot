@@ -34,6 +34,14 @@ REDIS_CLI = redis.Redis(
 BOT = telebot.TeleBot(cfg.TG_BOT_TOKEN, parse_mode="html")
 
 
+def jbot_add_token(user_id):
+    k = f"user-{user_id}"
+    user = json.loads(REDIS_CLI.get(k))
+    user["balance"] = user["balance"] + 8
+    REDIS_CLI.set(name=k, value=json.dumps(user))
+    BOT.send_message(chat_id=user_id, text="付款成功！商品已发放，请查收～")
+
+
 def jbot_set_vip(user_id):
     REDIS_CLI.delete(f"user-{user_id}")
     conn = sqlite3.connect(f"{cfg.PATH_USER_ROOT}/.tg_jav_bot_plus/tg_jav_bot_plus.db")
