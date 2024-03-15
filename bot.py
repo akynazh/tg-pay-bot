@@ -27,11 +27,19 @@ def handle_message(message):
         mk = InlineKeyboardMarkup()
         for i, item in enumerate(cfg.ITEMS):
             mk.row(InlineKeyboardButton(item["name"], callback_data=f"item:{i}"))
-        BOT.send_message(chat_id=user_id, text="在售商品列表, 点击查看详情或下单", reply_markup=mk)
+        BOT.send_message(
+            chat_id=user_id,
+            text="""在售商品列表, 点击商品即可查看详情或下单。下单后将返回付款码，请根据提示在指定时间内完成付款，否则订单作废。
+
+代码类服务完成付款后将自动返回服务码，将服务码发给管理员即可，同时可列出您的需求，协商完成后将尽快为您启动开发～                                         
+""",
+            reply_markup=mk,
+        )
     else:
-        BOT.reply_to(message,
+        BOT.reply_to(
+            message,
             f"""/items 查看在售商品列表
-/help 查看帮助"""
+/help 查看帮助""",
         )
 
 

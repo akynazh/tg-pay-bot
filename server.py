@@ -60,7 +60,7 @@ def code_service(user_id):
     BOT.send_message(chat_id=cfg.ADMIN_TG_ID, text=f"代码服务: {ts}")
     BOT.send_message(
         chat_id=user_id,
-        text=f"{ts}-付款成功！将付款截图和当前消息发给管理员即可～",
+        text=f"付款成功！您的服务码为：{ts}，将服务码发给管理员即可，同时可列出您的需求，协商完成后将尽快为您启动开发～",
         reply_markup=InlineKeyboardMarkup().row(
             InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT)
         ),
