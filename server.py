@@ -1,17 +1,12 @@
-import requests
 import uvicorn
 import telebot
-import anti_useragent
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from fastapi import FastAPI
 from fastapi.responses import Response
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import redis
 import sqlite3
-import random
 import json
-import os
 import cfg
 import time
 
@@ -28,9 +23,12 @@ class PayResult(BaseModel):
 
 
 APP = FastAPI()
-REDIS_CLI = redis.Redis(
-    host=cfg.REDIS_HOST, port=cfg.REDIS_PORT, password=cfg.REDIS_PASSWORD
-)
+try:
+    REDIS_CLI = redis.Redis(
+        host=cfg.REDIS_HOST, port=cfg.REDIS_PORT, password=cfg.REDIS_PASSWORD
+    )
+except Exception:
+    print("Redis is not working.")
 BOT = telebot.TeleBot(cfg.TG_BOT_TOKEN, parse_mode="html")
 
 

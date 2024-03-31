@@ -1,9 +1,7 @@
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, BotCommand
-import json
 import hashlib
 import requests
-import time
 import redis
 import cfg
 
