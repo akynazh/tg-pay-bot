@@ -1,3 +1,4 @@
+# pm2 start server.py --name pay-server --interpreter ~/Codes/tg-pay-bot/venv/bin/python3
 import uvicorn
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
