@@ -101,11 +101,11 @@ def handle_callback(call):
             photo=cfg.WALLET_PHOTO,
             caption=f"""📺订单明细:
             
-💰需要支付: {usdt_amount} USDT
+💰需要支付: <code>{usdt_amount}</code> USDT
 
-🤖网络: USDT-TRC20
+🤖网络: <code>USDT-TRC20</code>
 
-🎯钱包地址: {cfg.WALLET_TOKEN}
+🎯钱包地址: <code>{cfg.WALLET_TOKEN}</code>
 
 🚦扫码如上二维码进行支付即可，建议使用欧易完成支付(无限额)，如果提示无效二维码，请手动输入网络和钱包地址完成付款。
 
