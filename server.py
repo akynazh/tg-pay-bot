@@ -1,4 +1,4 @@
-# pm2 start server.py --name pay-server --interpreter ~/Codes/tg-pay-bot/venv/bin/python3
+# pm2 start server.py --name pay-server --interpreter ~/Codes/tg-pay-bot/.venv/bin/python3
 # pm2 start server.py --name pay-server --interpreter python3
 import uvicorn
 import telebot
