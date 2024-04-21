@@ -1,5 +1,5 @@
 # pm2 start bot.py --name pay-bot --interpreter ~/Codes/tg-pay-bot/venv/bin/python3
-# pm2 start server.py --name rss --interpreter python3
+# pm2 start server.py --name pay-bot --interpreter python3
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, BotCommand
 import hashlib
