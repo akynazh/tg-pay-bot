@@ -11,6 +11,7 @@ import sqlite3
 import json
 import cfg
 import time
+import threading
 
 
 class PayResult(BaseModel):
@@ -87,7 +88,8 @@ def notify(res: PayResult):
     item_id = int(user_id_item_id[s + 1 :])
     item = cfg.ITEMS[item_id]
     if res.status == 2:
-        globals()[item["action"]](user_id)
+        threading.Thread(target=globals()[item["action"]], args=(user_id,)).start()
+        # globals()[item["action"]](user_id)
         return Response("success", status_code=200)
     elif res.status == 3:
         BOT.send_message(user_id, "订单已过期")
