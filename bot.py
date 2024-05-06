@@ -113,8 +113,9 @@ def handle_callback(call):
 
 ⚡️请确保在 {int(cfg.EXPIRE_TIME_SECOND / 60)} 分钟内完成支付
 ⚡️注意支付金额必须和显示金额保持一致(订单号与此相关联, 输错则无法定位)
+⚡️付款成功后有一定延迟，超过五分钟没有反馈可联系管理员
 
-PS: 以上付款方式为链上提币，如果你使用欧易则可使用内部转账付款，付款时选择转账方式为UID，UID填写 <code>{OKX_UID}</code> 即可。内部转账成功后需将截图发给我，而链上提币不需要，机器人将自动处理。
+PS: 以上付款方式为链上提币，如果你使用欧易则可使用内部转账付款，付款时选择转账方式为UID，UID填写 <code>{OKX_UID}</code> 即可。内部转账成功后需将截图发给管理员，而链上提币不需要，机器人将自动处理。
 """,
             reply_markup=InlineKeyboardMarkup().row(
                 InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT),
