@@ -14,6 +14,7 @@ if cfg.REDIS_PASSWORD:
 else:
     REDIS_CLI = redis.Redis(host=cfg.REDIS_HOST, port=cfg.REDIS_PORT)
 BOT = telebot.TeleBot(cfg.TG_BOT_TOKEN, parse_mode="html")
+OKX_UID = "440186776666407525"
 
 
 @BOT.message_handler(content_types=["text"])
@@ -108,10 +109,17 @@ def handle_callback(call):
 
 🎯钱包地址: <code>{cfg.WALLET_TOKEN}</code>
 
-🚦扫码如上二维码进行支付即可，建议使用欧易完成支付(无限额)，如果提示无效二维码，请手动输入网络和钱包地址完成付款。
+🚦扫码如上二维码进行支付即可，如果提示无效二维码，请手动输入网络和钱包地址完成付款。
 
 ⚡️请确保在 {int(cfg.EXPIRE_TIME_SECOND / 60)} 分钟内完成支付
-⚡️注意支付金额必须和显示金额保持一致(订单号与此相关联, 输错则无法定位)""",
+⚡️注意支付金额必须和显示金额保持一致(订单号与此相关联, 输错则无法定位)
+
+PS: 以上付款方式为链上提币，如果你使用欧易则可使用内部转账付款，付款时选择转账方式为UID，UID填写 <code>{OKX_UID}</code> 即可。内部转账成功后需将截图发给我，而链上提币不需要，机器人将自动处理。
+""",
+            reply_markup=InlineKeyboardMarkup().row(
+                InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT),
+                InlineKeyboardButton("反馈交流", url="https://t.me/jav_bot_group"),
+            ),
         )
 
 
