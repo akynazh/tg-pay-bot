@@ -93,15 +93,15 @@ def notify(res: PayResult):
     if res.status == 2:
         threading.Thread(target=globals()[item["action"]], args=(user_id,)).start()
         # globals()[item["action"]](user_id)
-        return Response("success", status_code=200)
+        return Response("ok", status_code=200)
     elif res.status == 3:
         BOT.send_message(user_id, "订单已过期")
-        return Response("outdated", status_code=200)
+        return Response("ok", status_code=200)
 
 
 @APP.get("/redirect")
 def redirect():
-    return Response("success", status_code=200)
+    return Response("ok", status_code=200)
 
 
 if __name__ == "__main__":
