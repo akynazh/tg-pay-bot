@@ -36,10 +36,10 @@ BOT = telebot.TeleBot(cfg.TG_BOT_TOKEN, parse_mode="html")
 
 
 def jbot_add_token(user_id):
-    k = f"user-{user_id}"
-    user = json.loads(REDIS_CLI.get(k))
-    user["balance"] = user["balance"] + 8
-    REDIS_CLI.set(name=k, value=json.dumps(user))
+    conn = sqlite3.connect(f"{cfg.PATH_USER_ROOT}/.tg_jav_bot_plus/tg_jav_bot_plus.db")
+    conn.cursor().execute("UPDATE t_user SET balance=balance+? WHERE user_id=?", (160, user_id))
+    conn.commit()
+
     BOT.send_message(chat_id=user_id, text="付款成功！商品已发放，请查收～")
     BOT.send_message(
         chat_id=cfg.ADMIN_TG_ID,
@@ -48,10 +48,10 @@ def jbot_add_token(user_id):
 
 
 def jbot_set_vip(user_id):
-    REDIS_CLI.delete(f"user-{user_id}")
     conn = sqlite3.connect(f"{cfg.PATH_USER_ROOT}/.tg_jav_bot_plus/tg_jav_bot_plus.db")
     conn.cursor().execute("UPDATE t_user SET is_vip=? WHERE user_id=?", (1, user_id))
     conn.commit()
+
     BOT.send_message(chat_id=user_id, text="付款成功！商品已发放，请查收～")
     BOT.send_message(
         chat_id=cfg.ADMIN_TG_ID, text=f"[tg-pay-bot#jbot_set_vip] 用户{user_id}付款成功"
@@ -59,7 +59,10 @@ def jbot_set_vip(user_id):
 
 
 def jbot_set_svip(user_id):
-    REDIS_CLI.set(name=f"svip-{user_id}", value=1)
+    conn = sqlite3.connect(f"{cfg.PATH_USER_ROOT}/.tg_jav_bot_plus/tg_jav_bot_plus.db")
+    conn.cursor().execute("UPDATE t_user SET is_svip=? WHERE user_id=?", (1, user_id))
+    conn.commit()
+
     BOT.send_message(chat_id=user_id, text="付款成功！商品已发放，请查收～")
     BOT.send_message(
         chat_id=cfg.ADMIN_TG_ID,
