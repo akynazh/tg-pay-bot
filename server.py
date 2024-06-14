@@ -85,14 +85,13 @@ def code_service(user_id):
 @APP.post("/notify")
 def notify(res: PayResult):
     order_id = res.order_id
-    user_id_item_id = order_id[order_id.rfind("-") + 1 :]
+    user_id_item_id = order_id[order_id.rfind("-") + 1:]
     s = user_id_item_id.find("#")
     user_id = user_id_item_id[:s]
-    item_id = int(user_id_item_id[s + 1 :])
+    item_id = int(user_id_item_id[s + 1:])
     item = cfg.ITEMS[item_id]
     if res.status == 2:
         threading.Thread(target=globals()[item["action"]], args=(user_id,)).start()
-        # globals()[item["action"]](user_id)
         return Response("ok", status_code=200)
     elif res.status == 3:
         BOT.send_message(user_id, "订单已过期")
