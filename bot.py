@@ -96,6 +96,7 @@ def handle_callback(call):
             BOT.send_message(chat_id=user_id, text="创建订单失败，请重试或联系管理员～")
             return
         data = response.json()["data"]
+        trade_id = data["trade_id"]
         usdt_amount = data["actual_amount"]
         # payment_url = data["payment_url"]
         BOT.send_photo(
@@ -120,7 +121,7 @@ PS: 以上付款方式为链上提币，如果你使用欧易则可使用内部�
             reply_markup=InlineKeyboardMarkup().row(
                 InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT),
                 InlineKeyboardButton("反馈交流", url="https://t.me/jav_bot_group"),
-            ),
+            ).row(InlineKeyboardButton("查看订单状态", url=f"https://pay.akynazh.site/pay/checkout-counter/{trade_id}"),)
         )
 
 
