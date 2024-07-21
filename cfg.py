@@ -26,3 +26,4 @@ ADMIN_TG_ID = config["ADMIN_TG_ID"]
 
 with open(PATH_ITEMS_FILE, "r", encoding="utf8") as f:
     ITEMS = json.load(f)["items"]
+    ITEMS = list(filter(lambda x: x["status"] == 1, ITEMS))
