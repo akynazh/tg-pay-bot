@@ -30,9 +30,7 @@ def handle_message(message):
             mk.row(InlineKeyboardButton(item["name"], callback_data=f"item:{i}"))
         BOT.send_message(
             chat_id=user_id,
-            text="""在售商品列表, 点击商品即可查看详情或下单。下单后将返回付款码，请根据提示在指定时间内完成付款，否则订单作废。
-
-代码类服务完成付款后将自动返回服务码，将服务码发给管理员即可，同时可列出您的需求，协商完成后将尽快为您启动开发～                                         
+            text="""在售商品列表, 点击商品即可查看详情或下单。                                      
 """,
             reply_markup=mk,
         )
@@ -102,15 +100,13 @@ def handle_callback(call):
         BOT.send_photo(
             chat_id=user_id,
             photo=cfg.WALLET_PHOTO,
-            caption=f"""📺订单明细:
+            caption=f"""📺请扫码进行支付或手动输入网络和钱包地址完成付款。
             
 💰需要支付: <code>{usdt_amount}</code> USDT
 
 🤖网络: <code>USDT-TRC20</code>
 
 🎯钱包地址: <code>{cfg.WALLET_TOKEN}</code>
-
-🚦请扫码进行支付或手动输入网络和钱包地址完成付款。
 
 ⚡️注意支付金额必须和显示金额保持一致，请确保在 {int(cfg.EXPIRE_TIME_SECOND / 60)} 分钟内完成支付，超时则订单失效。
 """,
