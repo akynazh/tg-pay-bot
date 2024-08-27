@@ -27,3 +27,6 @@ ADMIN_TG_ID = config["ADMIN_TG_ID"]
 with open(PATH_ITEMS_FILE, "r", encoding="utf8") as f:
     ITEMS = json.load(f)["items"]
     ITEMS = list(filter(lambda x: x["status"] == 1, ITEMS))
+
+NAME_ADMIN = "@jackbryant286"
+NAME_JBOT_FEEDBACK_GROUP = "@jav_bot_group"

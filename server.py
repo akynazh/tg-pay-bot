@@ -90,11 +90,14 @@ def notify(res: PayResult):
     user_id = user_id_item_id[:s]
     item_id = int(user_id_item_id[s + 1:])
     item = cfg.ITEMS[item_id]
+    item_name = item["name"]
     if res.status == 2:
         threading.Thread(target=globals()[item["action"]], args=(user_id,)).start()
         return Response("ok", status_code=200)
     elif res.status == 3:
-        BOT.send_message(user_id, "订单已过期")
+        BOT.send_message(user_id, f"""您所购买的 [{item_name}] 商品对应订单已过期！
+        
+如果您已经付款成功但仍收到该条消息，请联系管理员 {cfg.NAME_ADMIN} 或在群组 {cfg.NAME_JBOT_FEEDBACK_GROUP} 反馈，注意发送付款成功的截图进行反馈哟！""")
         return Response("ok", status_code=200)
 
 
