@@ -7,6 +7,7 @@ import requests
 import redis
 import cfg
 
+LOG = cfg.Logger(path_log_file=cfg.PATH_LOG_FILE).logger
 if cfg.REDIS_PASSWORD:
     REDIS_CLI = redis.Redis(
         host=cfg.REDIS_HOST, port=cfg.REDIS_PORT, password=cfg.REDIS_PASSWORD
@@ -22,7 +23,7 @@ def handle_message(message):
     user_id = message.from_user.id
     cmd = message.text
 
-    print(f"收到消息: {cmd}")
+    LOG.info(f"[tg-pay-bot] 收到消息: {cmd}")
 
     if cmd == "/items" or cmd == "/start" or cmd == "/start 1":
         mk = InlineKeyboardMarkup()
@@ -47,7 +48,7 @@ def handle_callback(call):
     user_id = str(call.from_user.id)
     data = call.data
 
-    print(f"处理回调: {data}")
+    LOG.info(f"[tg-pay-bot] 处理回调: {data}")
 
     s = data.rfind(":")
     content = data[:s]

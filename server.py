@@ -13,6 +13,8 @@ import cfg
 import time
 import threading
 
+LOG = cfg.Logger(path_log_file=cfg.PATH_LOG_FILE).logger
+
 
 class PayResult(BaseModel):
     trade_id: str
@@ -31,7 +33,7 @@ try:
         host=cfg.REDIS_HOST, port=cfg.REDIS_PORT, password=cfg.REDIS_PASSWORD
     )
 except Exception:
-    print("Redis is not working.")
+    LOG.error("Redis is not working.")
 BOT = telebot.TeleBot(cfg.TG_BOT_TOKEN, parse_mode="html")
 
 
@@ -84,6 +86,7 @@ def code_service(user_id):
 
 @APP.post("/notify")
 def notify(res: PayResult):
+    LOG.info(f"[tg-pay-bot#server] 收到 bepusdt 回调: {res}")
     order_id = res.order_id
     user_id_item_id = order_id[order_id.rfind("-") + 1:]
     s = user_id_item_id.find("#")
