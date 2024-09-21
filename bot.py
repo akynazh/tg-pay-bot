@@ -68,9 +68,9 @@ def handle_callback(call):
             reply_markup=InlineKeyboardMarkup()
             .row(
                 InlineKeyboardButton("下单", callback_data=f"buy:{key_type}"),
-                InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT),
+                InlineKeyboardButton("联系管理员", url=cfg.URL_ADMIN_TG_ACCOUNT),
             )
-            .row(InlineKeyboardButton("反馈交流群", url=cfg.URL_JBOT_FEEDBACK_GROUP)),
+            .row(InlineKeyboardButton("反馈交流群", url=cfg.URL_FEEDBACK_GROUP)),
         )
     elif content == "buy":
         item = cfg.ITEMS[int(key_type)]
@@ -113,11 +113,11 @@ def handle_callback(call):
 
 ⚡️注意支付金额必须和显示金额保持一致，请确保在 {int(cfg.EXPIRE_TIME_SECOND / 60)} 分钟内完成支付，超时则订单失效。
 
-❤️如果您已经付款成功但未能收到商品，请联系管理员 {cfg.NAME_ADMIN} 或在群组 {cfg.NAME_JBOT_FEEDBACK_GROUP} 反馈，注意发送付款成功的截图进行反馈哟！
+❤️如果您已经付款成功但未能收到商品，请联系管理员 {cfg.NAME_ADMIN} 或在群组 {cfg.NAME_FEEDBACK_GROUP} 反馈，注意发送付款成功的截图进行反馈哟！
 """,
             # PS: 以上付款方式为链上提币，如果你使用欧易则可使用内部转账付款，付款时选择转账方式为UID，UID填写 <code>{OKX_UID}</code> 即可。内部转账成功后需将截图发给管理员，而链上提币不需要，机器人将自动处理。
             reply_markup=InlineKeyboardMarkup().row(
-                InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT),
+                InlineKeyboardButton("联系管理员", url=cfg.URL_ADMIN_TG_ACCOUNT),
                 InlineKeyboardButton("反馈交流群", url="https://t.me/jav_bot_group"),
             ),
             # .row(InlineKeyboardButton("查看订单状态", url=f"https://pay.akynazh.site/pay/checkout-counter/{trade_id}"),)

@@ -81,8 +81,8 @@ def code_service(user_id):
         chat_id=user_id,
         text=f"付款成功！您的服务码为：{ts}，将服务码发给管理员即可，同时可列出您的需求，协商完成后将尽快为您启动开发～",
         reply_markup=InlineKeyboardMarkup()
-        .row(InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT))
-        .row(InlineKeyboardButton("反馈交流群", url=cfg.URL_JBOT_FEEDBACK_GROUP)),
+        .row(InlineKeyboardButton("联系管理员", url=cfg.URL_ADMIN_TG_ACCOUNT))
+        .row(InlineKeyboardButton("反馈交流群", url=cfg.URL_FEEDBACK_GROUP)),
     )
 
 
@@ -104,7 +104,7 @@ def notify(res: PayResult):
             user_id,
             f"""您所购买的 [{item_name}] 商品对应订单已过期！
         
-如果您已经付款成功但仍收到该条消息，请联系管理员 {cfg.NAME_ADMIN} 或在群组 {cfg.NAME_JBOT_FEEDBACK_GROUP} 反馈，注意发送付款成功的截图进行反馈哟！""",
+如果您已经付款成功但仍收到该条消息，请联系管理员 {cfg.NAME_ADMIN} 或在群组 {cfg.NAME_FEEDBACK_GROUP} 反馈，注意发送付款成功的截图进行反馈哟！""",
         )
         return Response("ok", status_code=200)
 

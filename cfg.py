@@ -24,16 +24,15 @@ EXPIRE_TIME_SECOND = config["EXPIRE_TIME_SECOND"]
 REDIS_HOST = config["REDIS_HOST"]
 REDIS_PORT = config["REDIS_PORT"]
 REDIS_PASSWORD = config["REDIS_PASSWORD"]
-ADMIN_TG_ACCOUNT = config["ADMIN_TG_ACCOUNT"]
+NAME_ADMIN = config["NAME_ADMIN"]
+NAME_FEEDBACK_GROUP = config["NAME_FEEDBACK_GROUP"]
+URL_FEEDBACK_GROUP = config["URL_FEEDBACK_GROUP"]
+URL_ADMIN_TG_ACCOUNT = config["URL_ADMIN_TG_ACCOUNT"]
 ADMIN_TG_ID = config["ADMIN_TG_ID"]
 
 with open(PATH_ITEMS_FILE, "r", encoding="utf8") as f:
     ITEMS = json.load(f)["items"]
     ITEMS = list(filter(lambda x: x["status"] == 1, ITEMS))
-
-NAME_ADMIN = "@jackbryant286"
-NAME_JBOT_FEEDBACK_GROUP = "@jav_bot_group"
-URL_JBOT_FEEDBACK_GROUP = "https://t.me/jav_bot_group"
 
 
 class Logger:
