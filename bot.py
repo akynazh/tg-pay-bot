@@ -52,7 +52,7 @@ def handle_callback(call):
 
     s = data.rfind(":")
     content = data[:s]
-    key_type = data[s + 1:]
+    key_type = data[s + 1 :]
     BOT.send_chat_action(chat_id=user_id, action="typing")
     if content == "item":
         item = cfg.ITEMS[int(key_type)]
@@ -65,10 +65,12 @@ def handle_callback(call):
         BOT.send_message(
             chat_id=user_id,
             text=item_detail,
-            reply_markup=InlineKeyboardMarkup().row(
+            reply_markup=InlineKeyboardMarkup()
+            .row(
                 InlineKeyboardButton("下单", callback_data=f"buy:{key_type}"),
                 InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT),
-            ),
+            )
+            .row(InlineKeyboardButton("反馈交流群", url=cfg.NAME_JBOT_FEEDBACK_GROUP)),
         )
     elif content == "buy":
         item = cfg.ITEMS[int(key_type)]
@@ -116,8 +118,8 @@ def handle_callback(call):
             # PS: 以上付款方式为链上提币，如果你使用欧易则可使用内部转账付款，付款时选择转账方式为UID，UID填写 <code>{OKX_UID}</code> 即可。内部转账成功后需将截图发给管理员，而链上提币不需要，机器人将自动处理。
             reply_markup=InlineKeyboardMarkup().row(
                 InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT),
-                InlineKeyboardButton("反馈交流", url="https://t.me/jav_bot_group"),
-            )
+                InlineKeyboardButton("反馈交流群", url="https://t.me/jav_bot_group"),
+            ),
             # .row(InlineKeyboardButton("查看订单状态", url=f"https://pay.akynazh.site/pay/checkout-counter/{trade_id}"),)
         )
 

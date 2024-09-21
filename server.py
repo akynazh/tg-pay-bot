@@ -39,7 +39,9 @@ BOT = telebot.TeleBot(cfg.TG_BOT_TOKEN, parse_mode="html")
 
 def jbot_add_token(user_id):
     conn = sqlite3.connect(f"{cfg.PATH_USER_ROOT}/.tg_jav_bot_plus/tg_jav_bot_plus.db")
-    conn.cursor().execute("UPDATE t_user SET balance=balance+? WHERE user_id=?", (160, user_id))
+    conn.cursor().execute(
+        "UPDATE t_user SET balance=balance+? WHERE user_id=?", (160, user_id)
+    )
     conn.commit()
 
     BOT.send_message(chat_id=user_id, text="付款成功！商品已发放，请查收～")
@@ -78,9 +80,9 @@ def code_service(user_id):
     BOT.send_message(
         chat_id=user_id,
         text=f"付款成功！您的服务码为：{ts}，将服务码发给管理员即可，同时可列出您的需求，协商完成后将尽快为您启动开发～",
-        reply_markup=InlineKeyboardMarkup().row(
-            InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT)
-        ),
+        reply_markup=InlineKeyboardMarkup()
+        .row(InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT))
+        .row(InlineKeyboardButton("反馈交流群", url=cfg.NAME_JBOT_FEEDBACK_GROUP)),
     )
 
 
@@ -88,19 +90,22 @@ def code_service(user_id):
 def notify(res: PayResult):
     LOG.info(f"[tg-pay-bot#server] 收到 bepusdt 回调: {res}")
     order_id = res.order_id
-    user_id_item_id = order_id[order_id.rfind("-") + 1:]
+    user_id_item_id = order_id[order_id.rfind("-") + 1 :]
     s = user_id_item_id.find("#")
     user_id = user_id_item_id[:s]
-    item_id = int(user_id_item_id[s + 1:])
+    item_id = int(user_id_item_id[s + 1 :])
     item = cfg.ITEMS[item_id]
     item_name = item["name"]
     if res.status == 2:
         threading.Thread(target=globals()[item["action"]], args=(user_id,)).start()
         return Response("ok", status_code=200)
     elif res.status == 3:
-        BOT.send_message(user_id, f"""您所购买的 [{item_name}] 商品对应订单已过期！
+        BOT.send_message(
+            user_id,
+            f"""您所购买的 [{item_name}] 商品对应订单已过期！
         
-如果您已经付款成功但仍收到该条消息，请联系管理员 {cfg.NAME_ADMIN} 或在群组 {cfg.NAME_JBOT_FEEDBACK_GROUP} 反馈，注意发送付款成功的截图进行反馈哟！""")
+如果您已经付款成功但仍收到该条消息，请联系管理员 {cfg.NAME_ADMIN} 或在群组 {cfg.NAME_JBOT_FEEDBACK_GROUP} 反馈，注意发送付款成功的截图进行反馈哟！""",
+        )
         return Response("ok", status_code=200)
 
 
