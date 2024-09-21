@@ -4,7 +4,7 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 
-PATH_USER_ROOT = os.path.expanduser("~") 
+PATH_USER_ROOT = os.path.expanduser("~")
 PATH_PAY_BOT_ROOT = f"{PATH_USER_ROOT}/.tg_pay_bot"
 PATH_CFG_FILE = f"{PATH_PAY_BOT_ROOT}/config.yml"
 PATH_ITEMS_FILE = f"{PATH_PAY_BOT_ROOT}/items.json"
@@ -33,6 +33,8 @@ with open(PATH_ITEMS_FILE, "r", encoding="utf8") as f:
 
 NAME_ADMIN = "@jackbryant286"
 NAME_JBOT_FEEDBACK_GROUP = "@jav_bot_group"
+URL_JBOT_FEEDBACK_GROUP = "https://t.me/jav_bot_group"
+
 
 class Logger:
     """日志记录器"""
@@ -44,9 +46,10 @@ class Logger:
         :param int log_level: 记录级别, 默认 INFO 级别
         """
         self.logger = logging.getLogger()
-        formatter = logging.Formatter(
-            "[%(asctime)s] %(levelname)s: %(message)s")
-        r_file_handler = RotatingFileHandler(path_log_file, maxBytes=1024 * 1024 * 16, backupCount=1)
+        formatter = logging.Formatter("[%(asctime)s] %(levelname)s: %(message)s")
+        r_file_handler = RotatingFileHandler(
+            path_log_file, maxBytes=1024 * 1024 * 16, backupCount=1
+        )
         r_file_handler.setFormatter(formatter)
         stream_handler = logging.StreamHandler()
         stream_handler.setFormatter(formatter)

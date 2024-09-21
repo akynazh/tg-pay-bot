@@ -82,7 +82,7 @@ def code_service(user_id):
         text=f"付款成功！您的服务码为：{ts}，将服务码发给管理员即可，同时可列出您的需求，协商完成后将尽快为您启动开发～",
         reply_markup=InlineKeyboardMarkup()
         .row(InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT))
-        .row(InlineKeyboardButton("反馈交流群", url=cfg.NAME_JBOT_FEEDBACK_GROUP)),
+        .row(InlineKeyboardButton("反馈交流群", url=cfg.URL_JBOT_FEEDBACK_GROUP)),
     )
 
 

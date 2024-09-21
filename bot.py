@@ -70,7 +70,7 @@ def handle_callback(call):
                 InlineKeyboardButton("下单", callback_data=f"buy:{key_type}"),
                 InlineKeyboardButton("联系管理员", url=cfg.ADMIN_TG_ACCOUNT),
             )
-            .row(InlineKeyboardButton("反馈交流群", url=cfg.NAME_JBOT_FEEDBACK_GROUP)),
+            .row(InlineKeyboardButton("反馈交流群", url=cfg.URL_JBOT_FEEDBACK_GROUP)),
         )
     elif content == "buy":
         item = cfg.ITEMS[int(key_type)]
